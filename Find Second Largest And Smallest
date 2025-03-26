@@ -1,0 +1,132 @@
+
+//Bruteforce Approch
+/*
+1. sort array 
+2. Second smallest = arr[1]
+3. Second largest = arr[arr.length - 2]
+*/
+
+// import java.util.Arrays;
+// class Solution{
+//     public void FindSLS(int[] arr){
+//         if(arr.length< 2){
+//             System.out.println("Array must have at least 2 element");
+//         }
+//         Arrays.sort(arr);
+//         int secsmallest = arr[1];
+//         int seclargest = arr[arr.length -2];
+
+//         System.out.println("second smallest: "+ secsmallest);
+//         System.out.println("second largest: "+ seclargest);
+//     } 
+// }
+// public class FindSecondLargestAndSmallest{
+//     public static void main(String[] args){
+//         int[] arr = {1,2,3,4,5};
+//         Solution sol = new Solution();
+//         sol.FindSLS(arr);
+//     }
+// }
+
+
+
+//  Better Approch
+/* 
+1. First pass -> find Smallest & Largest 
+2. Second pass -> find SecondSmallest & SecondLargest
+*/
+
+// import java.util.Arrays;
+// class Solution {
+//     public static void FindSLS(int[] arr){
+//         if(arr.length<2){
+//             System.out.println("Arrays must have at least 2 element");
+//             return;
+//         }
+//         int smallest = Integer.MAX_VALUE , SecondSmallest=  Integer.MAX_VALUE;
+//         int largest = Integer.MIN_VALUE , SecondLargest = Integer.MIN_VALUE;
+
+//         // First pass -> find Smallest & Largest 
+//         for(int num : arr){
+//             if(num<smallest){ smallest = num;}
+//             if(num>largest){largest = num;}
+//         }
+//         //Second pass -> find SecondSmallest & SecondLargest
+//         for(int num: arr){
+//             if(num>smallest && num<SecondSmallest){SecondSmallest = num;}
+//             if(num<largest && num>SecondLargest){SecondLargest = num;}
+//         }
+
+//         System.out.println("second smallest: "+ SecondSmallest);
+//         System.out.println("second largest: "+ SecondLargest);
+//     }
+// }
+// public class FindSecondLargestAndSmallest{
+//     public static void main(String[] args){
+//         int[] arr = {1,2,3,4,5};
+//         Solution sol = new Solution();
+//         sol.FindSLS(arr);
+//     }
+// }
+
+// Note* Time Complixity:O(2N) ≈ O(N)
+// Better than sorting approach
+
+
+
+
+
+
+
+// Optimized Approach (O(N) in Single Pass)
+
+// import java.util.Arrays;
+class Solution{
+    public static void FindSLS(int[] arr){
+        if(arr.length<2){
+            System.out.println("Arrays must have at least 2 element");
+            return;
+        }
+
+        int smallest = Integer.MAX_VALUE, secondSmallest = Integer.MAX_VALUE;
+        int largest = Integer.MIN_VALUE, secondLargest = Integer.MIN_VALUE;
+
+        for (int num : arr) {
+            // Update smallest & second smallest
+            if (num < smallest) { 
+                secondSmallest = smallest;
+                smallest = num;
+            } else if (num < secondSmallest && num != smallest) {
+                secondSmallest = num;
+            }
+
+            // Update largest & second largest
+            if (num > largest) {
+                secondLargest = largest;
+                largest = num;
+            } else if (num > secondLargest && num != largest) {
+                secondLargest = num;
+            }
+        }
+        System.out.println("Second Smallest: " + secondSmallest);
+        System.out.println("Second Largest: " + secondLargest);
+        }
+    }
+public class FindSecondLargestAndSmallest{
+    public static void main(String[] args){
+        int[] arr = {1,2,3,4,5};
+        Solution.FindSLS(arr);
+    }
+}
+
+// NOTE*  Time Complexity: O(N) (Single pass, best approach!)
+//        Space Complexity: O(1) (No extra space used)  
+
+// OUTPUT
+//Second Smallest: 2
+//Second Largest: 4
+
+
+
+
+
